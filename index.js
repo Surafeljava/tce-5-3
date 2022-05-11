@@ -1,7 +1,5 @@
 const express = require('express');
-
 const app = express();
-
 app.use(express.json());
 
 let users = [
@@ -30,7 +28,7 @@ app.get('/name/:n', (req, res) => {
 });
 
 //localhost:3000/users
-app.get('/users', (req, res) => {
+app.get('/users', async (req, res) => {
     res.send(users);
 });
 
@@ -58,7 +56,8 @@ app.get('/users/:id', (req, res) => {
         res.send(usr);
         return;
     }
-    res.status(404).send("No user with this id.");
+    
+    res.send("No user with this id.");
 });
 
 //PORT number = 3000
