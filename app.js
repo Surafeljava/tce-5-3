@@ -26,9 +26,33 @@ const studentSchema = new Schema({
     grade: Number
 });
 
+const itemSchema = new Schema({
+    title: String,
+    desc: String,
+    logo: String
+});
 
 const StudentModel = 
 mongoose.model('student', studentSchema);
+
+const ItemModel = 
+mongoose.model('item', itemSchema);
+
+//localhost:3000/students
+app.get('/items', async (req, res) => {
+    let docs = await ItemModel.find({})
+    .catch((err) => {
+        res.json([]);
+    })
+
+    if(docs){
+        console.log(docs.length);
+        res.send(docs);
+        return;
+    }else{
+        res.json([]);
+    }
+});
 
 
 //localhost:3000/students
@@ -90,7 +114,7 @@ app.post('/students', (req, res) => {
     res.send("Sucessful");
 });
 
-app.listen(3000, (err) => {
+app.listen(5000, (err) => {
     if(!err){
         console.log("Server Running!");
     }
